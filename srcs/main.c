@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/02 16:14:04 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:06:31 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,13 @@ void	starting(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
-
-	starting();
-	while (1)
+	(void)argv;
+	if (argc != 1)
 	{
-		line = readline(BICYAN "Minishell > " RESET);
-		if (line == NULL)
-			break ;
-		
-		if (line[0] != '\0')
-			add_history(line);
-		if (ft_strncmp(line, "exit", 4) == 0)
-		{
-			free(line);
-			break ;
-		}
-		free(line);
+		ft_putstr_fd(BIRED "Error: No args allowed.\n" RESET, 2);
+		return (1);
 	}
+	starting();
+	if (minishell(envp))
+		return (1);
 }
