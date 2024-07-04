@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   garbage_collector_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 18:28:20 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/04 19:39:07 by abakirca         ###   ########.fr       */
+/*   Created: 2024/07/04 16:49:30 by abakirca          #+#    #+#             */
+/*   Updated: 2024/07/04 19:48:06 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
 
-int	minishell_init(int ac, char **argv, char **envp)
+t_garbcol	**getgarbage(void) // Program boyunca kullanılacak garbage collector'ü döndürür
 {
-	char *line;
-	int	i;
+	static t_garbcol	*collector;
 
-	i = 0;
-	while (1)
-	{
-		line = readline(BICYAN "Minishell > " RESET);
-		if (!line)
-			break ;
-		if (ft_strlen(line) > 0)
-		{
-			add_history(line);
-			lexer(line);
-		}
-		else if (ft_strncmp(line, "exit", 4) == 0)
-			break ;
-	}
+	return (&collector);
 }

@@ -6,13 +6,13 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/03 19:06:31 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:00:52 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
 
-void	starting(void)
+static void	starting(void)
 {
 	ft_printf(BIGREEN "\033[H\033[J");
 	ft_printf("   _____   __        __        __            __   __\n");
@@ -38,13 +38,26 @@ void	starting(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	(void)argv;
-	if (argc != 1)
-	{
-		ft_putstr_fd(BIRED "Error: No args allowed.\n" RESET, 2);
-		return (1);
+	// char	*input;
+	// t_token	*token;
+	// t_tlex	*lex;
+
+	// if (argc != 1)
+	// {
+	// 	ft_putstr_fd(BIRED "Error: No args needed.\n" RESET, 2);
+	// 	return (1);
+	// }
+	// starting();
+	// while (1)
+	// {
+	// 	input = prompt(minishell_init(argc, argv, envp));
+	// 	lex = lexer(input);
+	// 	if (!lex)
+	// 		continue ;
+	// 	token = parsing(&lex);
+	// 	if (!token)
+	// 		continue ;
+	// 	executor(token);
+	// 	free_all(&token, &lex);
 	}
-	starting();
-	if (minishell(envp))
-		return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/03 19:06:21 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:00:45 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # include <termios.h>
 # include <unistd.h>
 
+#ifndef GARBAGE_COLLECTOR
+# define GARBAGE_COLLECTOR 0
+#endif
+
 # define BIBLACK "\033[1;90m"
 # define BIRED "\033[1;91m"
 # define BIGREEN "\033[1;92m"
@@ -38,24 +42,22 @@
 # define BIWHITE "\033[1;97m"
 # define RESET "\033[0m"
 
-int			g_status;
+int			g_status = 0;
 
-typedef struct s_prompt
+typedef struct s_garbcol
 {
-	t_list	*cmds;
-	char	**envp;
-	pid_t	pid;
-}			t_prompt;
-
-typedef struct s_mini
-{
-	char	**full_cmd;
-	char	*full_path;
-	int		infile;
-	int		outfile;
-}			t_mini;
+	void				*content;
+	struct s_garbcol	*next;
+	struct s_garbcol	*previous;
+}	t_garbcol;
 
 int			minishell(char **envp);
 void		lexer(char *line);
+
+void		gfree(void *address);
+void		*addgarbage(void *address);
+void		*galloc(size_t size);
+void		clear_garbage(void);
+t_garbcol	**getgarbage(void);
 
 #endif
