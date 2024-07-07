@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:42:12 by abakirca          #+#    #+#             */
-/*   Updated: 2024/05/08 13:31:54 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:29:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int					firstpart(va_list args, char *str);
 int					secondpart(va_list args, char *str);
 int					thirdpart(va_list args, char *str);
 int					ft_printf(const char *str, ...);
+int					ft_isspace(char c);
 
 #endif

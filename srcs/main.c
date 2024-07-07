@@ -6,11 +6,18 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/04 20:00:52 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:33:52 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
+
+t_minishell	*get_minishell(void)
+{
+	static t_minishell	minishell;
+
+	return (&minishell);
+}
 
 static void	starting(void)
 {
@@ -38,26 +45,25 @@ static void	starting(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	// char	*input;
-	// t_token	*token;
-	// t_tlex	*lex;
+	t_minishell	*minishell;
+	char	*input;
 
-	// if (argc != 1)
-	// {
-	// 	ft_putstr_fd(BIRED "Error: No args needed.\n" RESET, 2);
-	// 	return (1);
-	// }
-	// starting();
-	// while (1)
-	// {
-	// 	input = prompt(minishell_init(argc, argv, envp));
-	// 	lex = lexer(input);
-	// 	if (!lex)
-	// 		continue ;
-	// 	token = parsing(&lex);
-	// 	if (!token)
-	// 		continue ;
-	// 	executor(token);
-	// 	free_all(&token, &lex);
+	minishell = get_minishell();
+	if (argc != 1)
+	{
+		ft_putstr_fd(BIRED "Error: No args needed.\n" RESET, 2);
+		return (1);
 	}
+	starting();
+	*minishell = init_minishell(minishell, envp);
+	while (1)
+	{
+		input = addgarbage(readline(BIBLUE "minishell > " RESET));
+		if (!input)
+			break ;
+		//lexer(input);
+		if (ft_strncmp(input, "exit", 4) == 0)
+			break ;
+	}
+	clear_garbage();
 }

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:48:33 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/04 19:47:37 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:49:36 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ void	*galloc(size_t size) // Mallocla yer açıp, adresi GC'ye ekleme
 	void	*address;
 
 	address = addgarbage(malloc(size));
-	if (!address)
-		ms_error("malloc error");
 	return (address);
 }
 
