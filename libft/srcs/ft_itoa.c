@@ -6,11 +6,11 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:13:02 by abakirca          #+#    #+#             */
-/*   Updated: 2023/12/21 16:39:08 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:50:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../inc/libft.h"
 #include <stdio.h>
 
 static	int	digitcount(long int n)
@@ -52,7 +52,7 @@ char	*ft_itoa(int n)
 	digits = digitcount(n);
 	if (n < 0)
 	{
-		final = (char *)malloc(digits++ * sizeof(char) + 2);
+		final = (char *)galloc(digits++ * sizeof(char) + 2);
 		if (final == NULL)
 			return (0);
 		final[0] = '-';
@@ -60,7 +60,7 @@ char	*ft_itoa(int n)
 	}
 	else
 	{
-		final = (char *)malloc(digits * sizeof(char) + 1);
+		final = (char *)galloc(digits * sizeof(char) + 1);
 		if (final == NULL)
 			return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:23:59 by abakirca          #+#    #+#             */
-/*   Updated: 2024/05/08 13:50:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:48:23 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *s1)
 
 	i = 0;
 	j = ft_strlen((char *)s1);
-	a = (char *)malloc((j * sizeof(char)) + 1);
+	a = (char *)galloc((j * sizeof(char)) + 1);
 	if (!a)
 		return (NULL);
 	while (s1[i])

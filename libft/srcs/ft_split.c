@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:36:05 by abakirca          #+#    #+#             */
-/*   Updated: 2024/05/08 13:50:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:48:32 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static char	**merror(char **arr, size_t i)
 {
 	while (arr[i])
-		free(arr[i++]);
-	free(arr);
+		gfree(arr[i++]);
+	gfree(arr);
 	return (NULL);
 }
 
@@ -59,7 +59,7 @@ char	**ft_split(char const *s, char c)
 
 	a = -1;
 	i = 0;
-	res = (char **)malloc(sizeof(char *) * (word_counter(s, c) + 1));
+	res = (char **)galloc(sizeof(char *) * (word_counter(s, c) + 1));
 	if (!s || !res)
 		return (NULL);
 	while (++a < word_counter(s, c))

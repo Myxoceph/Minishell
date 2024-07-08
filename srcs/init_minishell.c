@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:10:41 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/07 20:58:11 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:58:36 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ static int	count_rows(char **array)
 	while (array[rows] != NULL)
 		rows++;
 	return (rows);
-}
-
-static int	count_cols(char *array)
-{
-	return (strlen(array));
 }
 
 static char	**array_copier(char **src)
@@ -41,13 +36,13 @@ static char	**array_copier(char **src)
 	i = -1;
 	while (++i < rows)
 	{
-		cols = count_cols(src[i]);
+		cols = ft_strlen(src[i]);
 		dest[i] = (char *)galloc((cols + 1) * sizeof(char));
 		if (!dest[i])
 		{
 			while (i > 0)
-				free(dest[--i]);
-			free(dest);
+				gfree(dest[--i]);
+			gfree(dest);
 			return (NULL);
 		}
 		ft_memcpy(dest[i], src[i], (cols + 1) * sizeof(char));
@@ -56,11 +51,25 @@ static char	**array_copier(char **src)
 	return (dest);
 }
 
+void	free_2D_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		gfree(array[i]);
+		i++;
+	}
+	gfree(array);
+}
+
 t_minishell	init_minishell(t_minishell *minishell, char **envp)
 {
 	minishell = galloc(sizeof(t_minishell));
 	minishell->env = galloc(sizeof(t_env));
-	minishell->cmds = galloc(sizeof(t_cmds));
+	minishell->lexer = galloc(sizeof(t_lexer));
 	minishell->envp = array_copier(envp);
+	minishell->env = parse_env(minishell->envp);
 	return (*minishell);
 }

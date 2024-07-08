@@ -6,7 +6,7 @@
 #    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 16:24:56 by abakirca          #+#    #+#              #
-#    Updated: 2024/07/07 21:29:16 by abakirca         ###   ########.fr        #
+#    Updated: 2024/07/08 13:46:36 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBFT_DIR			=	$(SRC_DIR)ft_atoi.c $(SRC_DIR)ft_bzero.c $(SRC_DIR)ft_calloc.c $(S
 						$(SRC_DIR)ft_putnbrs.c $(SRC_DIR)ft_putchars.c $(SRC_DIR)ft_printf.c $(SRC_DIR)ft_printf_utils.c \
 						$(SRC_DIR)ft_lstadd_back_bonus.c $(SRC_DIR)ft_lstadd_front_bonus.c $(SRC_DIR)ft_lstclear_bonus.c \
 						$(SRC_DIR)ft_lstdelone_bonus.c $(SRC_DIR)ft_lstiter_bonus.c $(SRC_DIR)ft_lstlast_bonus.c \
-						$(SRC_DIR)ft_lstnew_bonus.c $(SRC_DIR)ft_lstsize_bonus.c $(SRC_DIR)ft_isspace.c
+						$(SRC_DIR)ft_lstnew_bonus.c $(SRC_DIR)ft_lstsize_bonus.c $(SRC_DIR)ft_isspace.c $(SRC_DIR)garbage_collector.c $(SRC_DIR)garbage_collector_utils.c
 
 SRC 				= $(LIBFT_DIR)
 

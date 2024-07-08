@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:03:29 by abakirca          #+#    #+#             */
-/*   Updated: 2024/05/08 13:50:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:48:23 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
-	ptr = (void *)malloc(count * size);
+	ptr = (void *)galloc(count * size);
 	if (!ptr)
 		return (NULL);
 	if (size == 1)

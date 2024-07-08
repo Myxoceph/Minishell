@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/07 21:32:58 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:55:39 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-#ifndef GARBAGE_COLLECTOR
-# define GARBAGE_COLLECTOR 1
-#endif
-
 # define BIBLACK "\033[1;90m"
 # define BIRED "\033[1;91m"
 # define BIGREEN "\033[1;92m"
@@ -42,45 +38,34 @@
 # define BIWHITE "\033[1;97m"
 # define RESET "\033[0m"
 
+# define ERR_TITLE "minishell: "
+# define SYNTAX_ERR "syntax error near unexpected token"
 
-typedef struct s_garbcol
-{
-	void				*content;
-	struct s_garbcol	*next;
-	struct s_garbcol	*previous;
-}	t_garbcol;
-
-typedef struct s_cmds
+typedef struct s_lexer
 {
 	char			**cmd;
-	struct s_cmds	*next;
-	struct s_cmds	*prev;
-}				t_cmds;
+}				t_lexer;
 
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	struct s_var	*next;
-	struct s_var	*prev;
+	struct s_env	*next;
+	struct s_env	*prev;
 }				t_env;
 
 typedef struct s_minishell
 {
 	t_env	*env;
-	t_cmds	*cmds;
+	t_lexer	*lexer;
 	char	**envp;
 	char	*input;
 }				t_minishell;
 
 t_minishell	*get_minishell(void);
-
-void		gfree(void *address);
-void		*addgarbage(void *address);
-void		*galloc(size_t size);
-void		clear_garbage(void);
-t_garbcol	**getgarbage(void);
-
 t_minishell	init_minishell(t_minishell *minishell, char **envp);
+t_env	*parse_env(char **env);
+void	lexer_parser(t_minishell *minishell, t_lexer *lexer);
+void	free_2D_array(char **array);
 
 #endif

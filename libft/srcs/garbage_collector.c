@@ -6,11 +6,12 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:48:33 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/07 20:49:36 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:48:40 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/Minishell.h"
+#include "../inc/libft.h"
+#include "stdbool.h"
 
 static bool	free_from_ll(void *address) // GC'de istenen adresi freeleme ve listeden çıkarma
 {

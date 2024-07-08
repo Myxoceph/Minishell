@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:24:28 by abakirca          #+#    #+#             */
-/*   Updated: 2024/05/08 13:50:43 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:48:23 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	final_string = malloc(((s1_len + s2_len + 1) * sizeof(char)));
+	final_string = galloc(((s1_len + s2_len + 1) * sizeof(char)));
 	if (final_string == NULL)
 		return (0);
 	i = -1;

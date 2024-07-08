@@ -6,7 +6,7 @@
 #    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/02 12:47:40 by abakirca          #+#    #+#              #
-#    Updated: 2024/07/07 21:32:23 by abakirca         ###   ########.fr        #
+#    Updated: 2024/07/08 13:46:32 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ RM					= rm -rf
 INC					= -I./inc/ -I./libft/inc/
 LDFLAGS				= -lreadline
 
-MINISHELL_DIR		= $(SRC_DIR)main.c $(SRC_DIR)init_minishell.c $(SRC_DIR)garbage_collector.c $(SRC_DIR)garbage_collector_utils.c \
+MINISHELL_DIR		= $(SRC_DIR)main.c $(SRC_DIR)init_minishell.c \
+					  $(SRC_DIR)lexer.c $(SRC_DIR)env.c
 
 SRCS 				= $(MINISHELL_DIR)
 

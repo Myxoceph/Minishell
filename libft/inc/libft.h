@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:42:12 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/07 21:29:04 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:49:28 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+#ifndef GARBAGE_COLLECTOR
+# define GARBAGE_COLLECTOR 1
+#endif
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_garbcol
+{
+	void				*content;
+	struct s_garbcol	*next;
+	struct s_garbcol	*previous;
+}	t_garbcol;
 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);
@@ -80,5 +91,10 @@ int					secondpart(va_list args, char *str);
 int					thirdpart(va_list args, char *str);
 int					ft_printf(const char *str, ...);
 int					ft_isspace(char c);
+void				gfree(void *address);
+void				*addgarbage(void *address);
+void				*galloc(size_t size);
+void				clear_garbage(void);
+t_garbcol			**getgarbage(void);
 
 #endif

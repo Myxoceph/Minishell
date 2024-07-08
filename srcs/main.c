@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/07 21:33:52 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:00:01 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ static void	starting(void)
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*minishell;
-	char	*input;
+	t_minishell *tmp;
+	char		*input;
+	int	i = -1;
 
 	minishell = get_minishell();
 	if (argc != 1)
@@ -61,9 +63,14 @@ int	main(int argc, char **argv, char **envp)
 		input = addgarbage(readline(BIBLUE "minishell > " RESET));
 		if (!input)
 			break ;
-		//lexer(input);
+		minishell->input = input;
+		lexer_parser(minishell, minishell->lexer);
+		while (minishell->lexer->cmd[++i])
+			ft_printf("cmd[%d]: %s\n", i, minishell->lexer->cmd[i]);
+		free_2D_array(minishell->lexer->cmd);
 		if (ft_strncmp(input, "exit", 4) == 0)
 			break ;
+		i = -1;
 	}
 	clear_garbage();
 }
