@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:36:05 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 13:48:32 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:12:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,34 +20,57 @@ static char	**merror(char **arr, size_t i)
 	return (NULL);
 }
 
-static int	word_counter(char const *s, char c)
+static int	word_counter(char const *s, char c, size_t i)
 {
-	size_t	i;
-
-	i = 0;
 	while (*s)
 	{
+		if (*s == '\"' || *s == '\'')
+		{
+			s++;
+			while (*s++)
+				if (*s == '\"' || *s == '\'')
+					break ;
+			if (*s == '\"' || *s == '\'')
+				s++;
+			i++;
+		}
 		if (*s == c)
 			s++;
-		else
+		else if (*s)
 		{
-			while (*s && *s != c)
-				s++;
+			while (*s++ && *s != c)
+				if (*s == '\"' || *s == '\'')
+					break ;
 			i++;
 		}
 	}
 	return (i);
 }
 
-static int	word_len(char const *s, char c)
+static int	word_len(char const *s, char c, int len)
 {
-	int	len;
-
-	len = 0;
 	if (!*s)
 		return (0);
-	while (*s && *s++ != c)
-		len++;
+	if (*s == '"' || *s == '\'')
+	{
+		s++;
+		len += 2;
+		while (*s++)
+		{
+			len++;
+			if (*s == '"' || *s == '\'')
+				break ;
+		}
+		if (*s == '"' || *s == '\'')
+			s++;
+	}
+	else
+		while (*s && *s++ != c)
+		{
+			len++;
+			if (*s == '\"' || *s == '\'')
+				break ;
+		}
 	return (len);
 }
 
@@ -59,17 +82,17 @@ char	**ft_split(char const *s, char c)
 
 	a = -1;
 	i = 0;
-	res = (char **)galloc(sizeof(char *) * (word_counter(s, c) + 1));
+	res = (char **)galloc(sizeof(char *) * (word_counter(s, c, 0) + 1));
 	if (!s || !res)
 		return (NULL);
-	while (++a < word_counter(s, c))
+	while (++a < word_counter(s, c, 0))
 	{
 		while (s[i] && s[i] == c)
 			i++;
-		res[a] = ft_substr(s, i, word_len(&s[i], c));
+		res[a] = ft_substr(s, i, word_len(&s[i], c, 0));
 		if (!res[a])
 			return (merror(res, 0));
-		i += word_len(&s[i], c);
+		i += word_len(&s[i], c, 0);
 	}
 	res[a] = NULL;
 	return (res);

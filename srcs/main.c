@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 14:00:01 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:14:24 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		while (minishell->lexer->cmd[++i])
 			ft_printf("cmd[%d]: %s\n", i, minishell->lexer->cmd[i]);
 		free_2D_array(minishell->lexer->cmd);
+		add_history(input);
 		if (ft_strncmp(input, "exit", 4) == 0)
 			break ;
 		i = -1;
