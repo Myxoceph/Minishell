@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 17:14:24 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:59:58 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ int	main(int argc, char **argv, char **envp)
 		minishell->input = input;
 		lexer_parser(minishell, minishell->lexer);
 		while (minishell->lexer->cmd[++i])
-			ft_printf("cmd[%d]: %s\n", i, minishell->lexer->cmd[i]);
-		free_2D_array(minishell->lexer->cmd);
+			ft_printf("cmd[%d]: -%s-\n", i, minishell->lexer->cmd[i]);
+		if (minishell->lexer->cmd)
+			free_2D_array(minishell->lexer);
 		add_history(input);
 		if (ft_strncmp(input, "exit", 4) == 0)
 			break ;

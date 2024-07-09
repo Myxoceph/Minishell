@@ -6,12 +6,12 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:36:05 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 17:12:04 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:21:57 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
-
+#include <stdio.h>
 static char	**merror(char **arr, size_t i)
 {
 	while (arr[i])
@@ -27,8 +27,8 @@ static int	word_counter(char const *s, char c, size_t i)
 		if (*s == '\"' || *s == '\'')
 		{
 			s++;
-			while (*s++)
-				if (*s == '\"' || *s == '\'')
+			while (*s)
+				if (*s++ && (*s == '\"' || *s == '\''))
 					break ;
 			if (*s == '\"' || *s == '\'')
 				s++;
@@ -38,12 +38,13 @@ static int	word_counter(char const *s, char c, size_t i)
 			s++;
 		else if (*s)
 		{
-			while (*s++ && *s != c)
-				if (*s == '\"' || *s == '\'')
+			while (*s && *s != c)
+				if (*s++ && (*s == '\"' || *s == '\''))
 					break ;
 			i++;
 		}
 	}
+	printf("i = %zu\n", i);
 	return (i);
 }
 
@@ -55,20 +56,20 @@ static int	word_len(char const *s, char c, int len)
 	{
 		s++;
 		len += 2;
-		while (*s++)
+		while (*s)
 		{
 			len++;
-			if (*s == '"' || *s == '\'')
+			if (*s++ && (*s == '"' || *s == '\''))
 				break ;
 		}
 		if (*s == '"' || *s == '\'')
 			s++;
 	}
 	else
-		while (*s && *s++ != c)
+		while (*s && *s != c)
 		{
 			len++;
-			if (*s == '\"' || *s == '\'')
+			if (*s++ && (*s == '\"' || *s == '\''))
 				break ;
 		}
 	return (len);

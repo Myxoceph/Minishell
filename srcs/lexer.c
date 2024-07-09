@@ -6,13 +6,35 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:24:40 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 15:03:35 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:07:29 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
+#include <stdio.h>
 
-int	syntax_error(t_minishell *minishell, t_lexer *lexer)
+static int	eol_error (t_minishell *minishell, t_lexer *lexer)
+{
+	char *line;
+	int	i;
+
+	line = minishell->input;
+	i = ft_strlen(line) - 1;
+	while (i > 0)
+	{
+		while (line[i] == ' ')
+			i--;
+		if (line[i] == '|')
+			return (ft_printf("%s %s %s\n", ERR_TITLE, SYNTAX_ERR, "'newline'"), 1);
+		else if (line[i] == '<' || line[i] == '>')
+			return (ft_printf("%s %s %s\n", ERR_TITLE, SYNTAX_ERR, "'newline'"), 1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
+static int	syntax_error(t_minishell *minishell, t_lexer *lexer)
 {
 	char *line;
 	int	i;
@@ -42,10 +64,11 @@ int	syntax_error(t_minishell *minishell, t_lexer *lexer)
 void	lexer_parser(t_minishell *minishell, t_lexer *lexer)
 {
 	if (syntax_error(minishell, lexer))
-	{
-		clear_garbage();
-		exit(1);
-	}
-	lexer->cmd = ft_split(minishell->input, ' ');
+		return ;
+	if (eol_error(minishell, lexer))
+		return ;
+	lexer->cmd = ft_lexer_split(minishell->input, ' ');
+	parser(minishell, minishell->parser, lexer);
+
 	return ;
 }

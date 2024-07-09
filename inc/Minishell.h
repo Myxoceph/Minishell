@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 14:55:39 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:07:09 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef struct s_lexer
 	char			**cmd;
 }				t_lexer;
 
+typedef struct s_parser
+{
+	char			**args;
+	struct s_parser	*next;
+	struct s_parser	*prev;
+}				t_parser;
+
 typedef struct s_env
 {
 	char			*key;
@@ -56,16 +63,19 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
-	t_env	*env;
-	t_lexer	*lexer;
-	char	**envp;
-	char	*input;
+	t_env		*env;
+	t_lexer		*lexer;
+	t_parser	*parser;
+	char		**envp;
+	char		*input;
 }				t_minishell;
 
 t_minishell	*get_minishell(void);
 t_minishell	init_minishell(t_minishell *minishell, char **envp);
-t_env	*parse_env(char **env);
-void	lexer_parser(t_minishell *minishell, t_lexer *lexer);
-void	free_2D_array(char **array);
+t_env		*parse_env(char **env);
+void		lexer_parser(t_minishell *minishell, t_lexer *lexer);
+void		free_2D_array(t_lexer *lexer);
+char		**ft_lexer_split(char *s, char c);
+void 		parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer);
 
 #endif
