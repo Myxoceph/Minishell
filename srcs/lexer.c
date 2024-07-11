@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:24:40 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/09 20:07:29 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:00:03 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,17 @@ static int	syntax_error(t_minishell *minishell, t_lexer *lexer)
 
 void	lexer_parser(t_minishell *minishell, t_lexer *lexer)
 {
+	int	i;
+
+	i = -1;
+	minishell->input = ft_strtrim(minishell->input, " ");
 	if (syntax_error(minishell, lexer))
 		return ;
 	if (eol_error(minishell, lexer))
 		return ;
 	lexer->cmd = ft_lexer_split(minishell->input, ' ');
+	while (lexer->cmd[++i])
+		lexer->cmd[i] = ft_split_array(lexer->cmd[i], ' ');
 	parser(minishell, minishell->parser, lexer);
 
 	return ;

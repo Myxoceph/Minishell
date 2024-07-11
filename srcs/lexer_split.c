@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:55:43 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/09 20:16:19 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:26:58 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,69 +28,104 @@ static int	lexer_word_counter(char *s, char c, int i, int len)
 	{
 		if (s[i] == '|')
 			len++;
-		// else if ((s[i] == '<' && s[i + 1] == '<' ) || (s[i] == '>' && s[i + 1] == '>'))
-		// 	len++;
-		// else if (s[i] == '<' || s[i] == '>')
-		// 	len++;
+		else if ((s[i] == '<' && s[i + 1] == '<' ) || (s[i] == '>' && s[i + 1] == '>'))
+		{
+			len++;
+			i++;
+		}
+		else if (s[i] == '<' || s[i] == '>')
+			len++;
 		i++;
 	}
 	// printf("--girdi | wordcount -> %d\n", len);
 	return (len);
 }
 
-// static int	handle_directs(char *s, int i, int len)
-// {
-// 	if (s[i] == '<' && s[i + 1] == '<')
-// 	{
-// 		while ((s[i] && (s[i] != '<' || s[i] != '>' || s[i] != '|')) && i++)
-// 			len++;
-// 	}
-// 	else if (s[i] == '>' && s[i + 1] == '>')
-// 	{
-// 		while ((s[i] && (s[i] != '<' || s[i] != '>' || s[i] != '|')) && i++)
-// 			len++;
-// 	}
-// 	else if (s[i] == '<')
-// 	{
-// 		while ((s[i] && (s[i] != '<' || s[i] != '>' || s[i] != '|')) && i++)
-// 			len++;
-// 	}
-// 	else if (s[i] == '>')
-// 	{
-// 		while ((s[i] && (s[i] != '<' || s[i] != '>' || s[i] != '|')) && i++)
-// 			len++;
-// 	}
-// 	return (len);
-// }
+static int	handle_directs(char *s, int i, int len, int quotes)
+{
+	if (s[i] == '<' && s[i + 1] == '<')
+	{
+		i += 2;
+		len += 2;
+		while (s[i] == ' ' && i++)
+			len++;
+		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
+			len++;
+	}
+	else if (s[i] == '>' && s[i + 1] == '>')
+	{
+		i += 2;
+		len += 2;
+		while (s[i] == ' ' && i++)
+			len++;
+		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
+			len++;
+	}
+	else if (s[i] == '<')
+	{
+		i++;
+		len++;
+		while (s[i] == ' ' && i++)
+			len++;
+		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
+			len++;
+	}
+	else if (s[i] == '>')
+	{
+		i++;
+		len++;
+		while (s[i] == ' ' && i++)
+			len++;
+		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
+			len++;
+	}
+	return (len);
+}
 
 static int	lexer_word_len(char *s, int i, int len)
 {
+	int	quotes;
+
 	while (s[i])
 	{
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			quotes = s[i];
+			i++;
+			len++;
+			while (s[i] && s[i] != quotes)
+			{
+				i++;
+				len++;
+			}
+				i++;
+				len++;
+		}
 		if (s[i] == '|')
 		{
 			len++;
 			break;
 		}
-		// else if (s[i] == '<' && s[i + 1] == '<')
-		// {
-		// 	len += handle_directs(s, i, len);
-		// 	break;
-		// }
-		// else if (s[i] == '>' && s[i + 1] == '>')
-		// {
-		// 	len += handle_directs(s, i, len);
-		// 	break;
-		// }
-		else if (s[i] == '<')
+		else if (s[i] == '<' && s[i + 1] == '<')
 		{
+			len += handle_directs(s, i, 0, 0);
 			break;
 		}
-		// else if (s[i] == '>')
-		// {
-		// 	len += handle_directs(s, i, len);
-		// 	break;
-		// }
+		else if (s[i] == '>' && s[i + 1] == '>')
+		{
+			len += handle_directs(s, i, 0, 0);
+			break;
+		}
+		else if (s[i] == '<')
+		{
+			len += handle_directs(s, i, 0, 0);
+			break;
+		}
+		else if (s[i] == '>')
+		{
+			len += handle_directs(s, i, 0, 0);
+			break;
+		}
 		i++;
 		len++;
 	}

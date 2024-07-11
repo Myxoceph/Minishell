@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/09 20:07:09 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:28:34 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <stdbool.h>
+# include <fcntl.h>
 
 # define BIBLACK "\033[1;90m"
 # define BIRED "\033[1;91m"
@@ -40,6 +42,7 @@
 
 # define ERR_TITLE "minishell: "
 # define SYNTAX_ERR "syntax error near unexpected token"
+# define MALL_ERR "malloc error"
 
 typedef struct s_lexer
 {
@@ -49,6 +52,7 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	char			**args;
+	bool			pipe;
 	struct s_parser	*next;
 	struct s_parser	*prev;
 }				t_parser;
@@ -77,5 +81,8 @@ void		lexer_parser(t_minishell *minishell, t_lexer *lexer);
 void		free_2D_array(t_lexer *lexer);
 char		**ft_lexer_split(char *s, char c);
 void 		parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer);
+char		**ft_parser_split(char *s, char c);
+char		*ft_split_array(char *s, char c);
+void		executor(t_minishell *minishell);
 
 #endif

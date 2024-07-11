@@ -6,7 +6,7 @@
 #    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/02 12:47:40 by abakirca          #+#    #+#              #
-#    Updated: 2024/07/09 20:06:53 by abakirca         ###   ########.fr        #
+#    Updated: 2024/07/11 19:47:40 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LDFLAGS				= -lreadline
 
 MINISHELL_DIR		= $(SRC_DIR)main.c $(SRC_DIR)init_minishell.c \
 					  $(SRC_DIR)lexer.c $(SRC_DIR)env.c $(SRC_DIR)lexer_split.c \
-					  $(SRC_DIR)parser.c $(SRC_DIR)parser_split.c
+					  $(SRC_DIR)parser.c $(SRC_DIR)parser_split.c $(SRC_DIR)ft_split_array.c $(SRC_DIR)executor.c
 
 SRCS 				= $(MINISHELL_DIR)
 

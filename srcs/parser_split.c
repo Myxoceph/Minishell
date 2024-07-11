@@ -6,32 +6,115 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:59:05 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/09 20:07:42 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:48:24 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
 
-// char	**ft_parser_split(char *s, char c)
-// {
-// 	char	**res;
-// 	int		a;
-// 	int		i;
+static char	**merror(char **arr, size_t i)
+{
+	while (arr[i])
+		gfree(arr[i++]);
+	gfree(arr);
+	return (NULL);
+}
 
-// 	a = -1;
-// 	i = 0;
-// 	if (!s)
-// 		return (NULL);
-// 	res = (char **)galloc(sizeof(char *) * (lexer_word_counter(s, c, 0, 1) + 1));
-// 	if (!res)
-// 		return (NULL);
-// 	while (++a < lexer_word_counter(s, c, 0, 1))
-// 	{
-// 		res[a] = ft_substr(s, i, lexer_word_len(&s[i], 0, 0));
-// 		if (!res[a])
-// 			return (merror(res, 0));
-// 		i += lexer_word_len(&s[i], 0, 0);
-// 	}
-// 	res[a] = NULL;
-// 	return (res);
-// }
+static int	word_counter(char *str)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			i++;
+			while (str[i] && str[i] != '\'' && str[i] != '\"')
+				i++;
+			count++;
+			if (str[i])
+				i++;
+		}
+		else if (str[i] != ' ')
+		{
+			while (str[i] && str[i] != ' ')
+				i++;
+			count++;
+		}
+		else
+			i++;
+	}
+	// printf("--wordcount: %d--\n", count);
+	return (count);
+}
+
+static int	word_len(char *s)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	if (!*s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			i++;
+			len++;
+			while (s[i] && s[i] != '\'' && s[i] != '\"')
+			{
+				len++;
+				i++;
+			}
+			i++;
+			len++;
+		}
+		else if (s[i] == ' ' && s[i + 1] == '\'' || s[i + 1] == '\"')
+		{
+				len++;
+				i++;
+		}
+		else if (s[i] == ' ')
+		{
+			break;
+		}
+		else
+		{
+			len++;
+			i++;
+		}
+	}
+	return (len);
+}
+
+char	**ft_parser_split(char *s, char c)
+{
+	char	**res;
+	int		a;
+	int		i;
+
+	a = 0;
+	i = 0;
+	if (!s)
+		return (NULL);
+	res = (char **)galloc(sizeof(char *) * (word_counter(s) + 1));
+	if (!res)
+		return (NULL);
+	while (a < word_counter(s))
+	{
+		while (s[i] && s[i] == c)
+			i++;
+		res[a] = ft_substr(s, i, word_len(&s[i]));
+		if (!res[a])
+			return (merror(res, 0));
+		i += word_len(&s[i]);
+		a++;
+	}
+	res[a] = NULL;
+	return (res);
+}
