@@ -1,0 +1,15 @@
+total 184
+drwxr-xr-x  14 abakirca  2023_kocaeli    476 Jul 12 16:19 .
+drwxr-xr-x   9 abakirca  2023_kocaeli    306 Jul  9 20:20 ..
+-rw-r--r--@  1 abakirca  2023_kocaeli   6148 Jul  7 21:35 .DS_Store
+drwxr-xr-x  15 abakirca  2023_kocaeli    510 Jul 11 20:39 .git
+-rw-r--r--   1 abakirca  2023_kocaeli     66 Jul  3 17:11 .gitattributes
+-rw-r--r--   1 abakirca  2023_kocaeli    442 Jul  3 17:11 .gitignore
+-rw-r--r--   1 abakirca  2023_kocaeli   2006 Jul 11 19:47 Makefile
+-rw-r--r--   1 abakirca  2023_kocaeli     35 Jul  3 17:11 README.md
+-rw-r--r--   1 abakirca  2023_kocaeli      0 Jul 12 16:19 a
+drwxr-xr-x   3 abakirca  2023_kocaeli    102 Jul  3 17:11 inc
+drwxr-xr-x   7 abakirca  2023_kocaeli    238 Jul 12 13:10 libft
+-rwxr-xr-x   1 abakirca  2023_kocaeli  69200 Jul 12 16:17 minishell
+drwxr-xr-x  11 abakirca  2023_kocaeli    374 Jul 12 16:17 obj
+drwxr-xr-x  11 abakirca  2023_kocaeli    374 Jul 11 19:41 srcs

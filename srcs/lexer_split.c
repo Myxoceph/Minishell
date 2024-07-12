@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:55:43 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/11 19:26:58 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:37:47 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,20 @@ static int	handle_directs(char *s, int i, int len, int quotes)
 		while (s[i] == ' ' && i++)
 			len++;
 		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
-			len++;
+			if (s[i] == '\'' || s[i] == '\"')
+			{
+				i++;
+				len++;
+				while (s[i] && s[i] != '\'' && s[i] != '\"')
+				{
+					i++;
+					len++;
+				}
+				i++;
+				len++;
+			}
+			else
+				len++;
 	}
 	else if (s[i] == '>' && s[i + 1] == '>')
 	{
@@ -59,7 +72,20 @@ static int	handle_directs(char *s, int i, int len, int quotes)
 		while (s[i] == ' ' && i++)
 			len++;
 		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
-			len++;
+			if (s[i] == '\'' || s[i] == '\"')
+			{
+				i++;
+				len++;
+				while (s[i] && s[i] != '\'' && s[i] != '\"')
+				{
+					i++;
+					len++;
+				}
+				i++;
+				len++;
+			}
+			else
+				len++;
 	}
 	else if (s[i] == '<')
 	{
@@ -68,7 +94,20 @@ static int	handle_directs(char *s, int i, int len, int quotes)
 		while (s[i] == ' ' && i++)
 			len++;
 		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
-			len++;
+			if (s[i] == '\'' || s[i] == '\"')
+			{
+				i++;
+				len++;
+				while (s[i] && s[i] != '\'' && s[i] != '\"')
+				{
+					i++;
+					len++;
+				}
+				i++;
+				len++;
+			}
+			else
+				len++;
 	}
 	else if (s[i] == '>')
 	{
@@ -77,7 +116,20 @@ static int	handle_directs(char *s, int i, int len, int quotes)
 		while (s[i] == ' ' && i++)
 			len++;
 		while ((s[i] && (s[i] != '<' && s[i] != '>' && s[i] != '|' && s[i] != ' ')) && i++)
-			len++;
+			if (s[i] == '\'' || s[i] == '\"')
+			{
+				i++;
+				len++;
+				while (s[i] && s[i] != '\'' && s[i] != '\"')
+				{
+					i++;
+					len++;
+				}
+				i++;
+				len++;
+			}
+			else
+				len++;
 	}
 	return (len);
 }

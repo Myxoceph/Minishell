@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/11 19:48:47 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:11:35 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,18 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		minishell->input = input;
 		lexer_parser(minishell, minishell->lexer);
-		// while (minishell->lexer->cmd[++i])
-		// 	ft_printf("Lexer input[%d]: $%s$\n", i, minishell->lexer->cmd[i]);
-		// i = -1;
-		// while (minishell->parser->next != NULL)
-		// {
-		// 	while (minishell->parser->args[++i])
-		// 		ft_printf("Parser input[%d] : $%s$\n", i, minishell->parser->args[i]);
-		// 	ft_printf("Parser pipe : %d\n", minishell->parser->pipe);
-		// 	minishell->parser = minishell->parser->next;
-		// 	i = -1;
-		// }
-		executor(minishell);
+		while (minishell->lexer->cmd[++i])
+			ft_printf("Lexer input[%d]: $%s$\n", i, minishell->lexer->cmd[i]);
+		i = -1;
+		while (minishell->parser->next != NULL)
+		{
+			while (minishell->parser->args[++i])
+				ft_printf("Parser input[%d] : $%s$\n", i, minishell->parser->args[i]);
+			ft_printf("Parser pipe : %d\n", minishell->parser->pipe);
+			minishell->parser = minishell->parser->next;
+			i = -1;
+		}
+		// executor(minishell);
 		if (minishell->lexer->cmd)
 			free_2D_array(minishell->lexer);
 		add_history(input);
