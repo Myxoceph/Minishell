@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 12:00:32 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/08 13:55:11 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:50:38 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_env	*parse_env(char **env)
 		equal_sign = ft_strchr(env[i], '=');
 		if (equal_sign)
 		{
-			key_len = equal_sign - env[i];
+			key_len = equal_sign - env[i] + 1;
 			key = (char *)galloc(key_len + 1);
 			ft_strlcpy(key, env[i], key_len);
 			key[key_len] = '\0';

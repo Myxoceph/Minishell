@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 11:34:56 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:13:46 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void		executor(t_minishell *minishell);
 int			quote_check(const char *str, size_t start);
 int			is_whitespace_ll(char c);
 t_parser	*free_list_array(t_parser *parser);
+void		ft_echo(char **args);
+void		ft_env(t_minishell *minishell);
+char		*get_pwd(void);
+void		signal_handler(int signo);
 
 
 #endif

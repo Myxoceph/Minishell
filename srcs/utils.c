@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:57:17 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 11:36:10 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:13:39 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,15 @@ t_parser	*free_list_array(t_parser *parser)
 	}
 	parser = NULL;
 	return (parser);
+}
+
+void	signal_handler(int signo)
+{
+	if (signo == SIGINT)
+	{
+		ft_printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }

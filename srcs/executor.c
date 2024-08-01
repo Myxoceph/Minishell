@@ -6,48 +6,45 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:41:11 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/11 20:35:25 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:00:00 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
 
-static int finder(char **args)
+static int	is_builtin(char *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (ft_strncmp(args[i], ">", 1) == 0)
-			return (i + 1);
-		i++;
-	}
+	if (!ft_strncmp(cmd, "echo", 4))
+		return (1);
+	else if (!ft_strncmp(cmd, "cd", 4))
+		return (2);
+	else if (!ft_strncmp(cmd, "pwd", 4))
+		return (3);
+	else if (!ft_strncmp(cmd, "export", 4))
+		return (4);
+	else if (!ft_strncmp(cmd, "unset", 4))
+		return (5);
+	else if (!ft_strncmp(cmd, "env", 4))
+		return (6);
+	else if (!ft_strncmp(cmd, "exit", 4))
+		return (7);
 	return (0);
 }
 
 void	executor(t_minishell *minishell)
 {
-	pid_t	pid;
-	int	status;
-	int	fd;
-	int	redir;
-
-	redir = finder(minishell->parser->args);
-	if (redir == 0)
-	{
-		return;
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		fd = open(minishell->parser->args[redir], O_RDWR | O_CREAT | O_TRUNC, 0644);
-		dup2(fd, STDOUT_FILENO);
-		close (fd);
-		if (execve("/bin/echo", minishell->parser->args, minishell->envp) == -1)
-			ft_printf("%s %s\n", ERR_TITLE, "execve error");
-	}
-	else
-		waitpid(pid, &status, 0);
-
+	if (is_builtin(minishell->parser->args[0]) == 1)
+		ft_echo(minishell->parser->args);
+	// else if (is_builtin(minishell->parser->args[0]) == 2)
+	// 	cd(minishell->parser->args);
+	else if (is_builtin(minishell->parser->args[0]) == 3)
+		get_pwd();
+	// else if (is_builtin(minishell->parser->args[0]) == 4)
+	// 	export(minishell->parser->args);
+	// else if (is_builtin(minishell->parser->args[0]) == 5)
+	// 	unset(minishell->parser->args);
+	else if (is_builtin(minishell->parser->args[0]) == 6)
+		ft_env(minishell);
+	else if (is_builtin(minishell->parser->args[0]) == 7)
+		exit(0);
 }

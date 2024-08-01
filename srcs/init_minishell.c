@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:10:41 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 11:09:38 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:19:06 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ t_minishell	init_minishell(t_minishell *minishell, char **envp)
 	minishell->lexer = galloc(sizeof(t_lexer));
 	ft_memset(minishell->lexer, 0, sizeof(t_lexer));
 	minishell->parser = NULL;
-	// minishell->parser = galloc(sizeof(t_parser));
-	// ft_memset(minishell->parser, 0, sizeof(t_parser));
 	minishell->envp = array_copier(envp);
 	minishell->env = parse_env(minishell->envp);
 	return (*minishell);

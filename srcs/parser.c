@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:48:46 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 12:30:25 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:21:04 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	wordcount(char **s, int *i)
 			(*i)++;
 		}
 	}
-	printf("count -> %d\n", count);
+	// printf("count -> %d\n", count);
 	return (count);
 }
 
@@ -119,7 +119,6 @@ t_parser	*parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer)
 				k++;
 			}
 			args[k] = NULL;
-			printf("Adding new list element\n");
 			lstadd_back(&parser, lstnew(args));
 			j++;
 			i++;
