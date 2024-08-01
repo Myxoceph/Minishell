@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:24:40 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/11 16:00:03 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:23:36 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,31 @@ static int	syntax_error(t_minishell *minishell, t_lexer *lexer)
 	return (0);
 }
 
+static void printList(t_parser *head) {
+	t_parser *tmp = head;
+	int j = 0;
+	while (tmp)
+	{
+		for (int m = 0; tmp->args[m] != NULL; m++)
+		{
+			printf("[%d.nci node] Parser Args[%d]: $%s$\n",j, m, tmp->args[m]);
+		}
+		tmp = tmp->next;
+		j++;
+	}
+}
+
 void	lexer_parser(t_minishell *minishell, t_lexer *lexer)
 {
 	int	i;
 
 	i = -1;
-	minishell->input = ft_strtrim(minishell->input, " ");
 	if (syntax_error(minishell, lexer))
 		return ;
 	if (eol_error(minishell, lexer))
 		return ;
-	lexer->cmd = ft_lexer_split(minishell->input, ' ');
-	while (lexer->cmd[++i])
-		lexer->cmd[i] = ft_split_array(lexer->cmd[i], ' ');
-	parser(minishell, minishell->parser, lexer);
-
+	lexer->cmd = ft_lexer_split(minishell->input);
+	minishell->parser = parser(minishell, minishell->parser, minishell->lexer);
+	printList(minishell->parser);
 	return ;
 }

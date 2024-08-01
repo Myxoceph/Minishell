@@ -6,7 +6,7 @@
 #    By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/02 12:47:40 by abakirca          #+#    #+#              #
-#    Updated: 2024/07/11 19:47:40 by abakirca         ###   ########.fr        #
+#    Updated: 2024/07/30 16:22:25 by abakirca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,14 @@ LIBFT				= ./libft/libft.a
 SRC_DIR				= srcs/
 OBJ_DIR				= obj/
 CC					= gcc
-CFLAGS				= -Wall -Werror -Wextra
+CFLAGS				= -Wall -Werror -Wextra -g
 RM					= rm -rf
 INC					= -I./inc/ -I./libft/inc/
 LDFLAGS				= -lreadline
 
 MINISHELL_DIR		= $(SRC_DIR)main.c $(SRC_DIR)init_minishell.c \
 					  $(SRC_DIR)lexer.c $(SRC_DIR)env.c $(SRC_DIR)lexer_split.c \
-					  $(SRC_DIR)parser.c $(SRC_DIR)parser_split.c $(SRC_DIR)ft_split_array.c $(SRC_DIR)executor.c
+					  $(SRC_DIR)parser.c $(SRC_DIR)utils.c $(SRC_DIR)executor.c
 
 SRCS 				= $(MINISHELL_DIR)
 

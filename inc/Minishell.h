@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/11 20:28:34 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:34:56 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@
 # define SYNTAX_ERR "syntax error near unexpected token"
 # define MALL_ERR "malloc error"
 
+typedef enum e_token
+{
+	WORD,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	HERE_DOC,
+	PIPE,
+}				t_token;
+
 typedef struct s_lexer
 {
 	char			**cmd;
@@ -52,9 +62,9 @@ typedef struct s_lexer
 typedef struct s_parser
 {
 	char			**args;
-	bool			pipe;
+	char			*rdrs;
+	t_token			token;
 	struct s_parser	*next;
-	struct s_parser	*prev;
 }				t_parser;
 
 typedef struct s_env
@@ -78,11 +88,13 @@ t_minishell	*get_minishell(void);
 t_minishell	init_minishell(t_minishell *minishell, char **envp);
 t_env		*parse_env(char **env);
 void		lexer_parser(t_minishell *minishell, t_lexer *lexer);
-void		free_2D_array(t_lexer *lexer);
-char		**ft_lexer_split(char *s, char c);
-void 		parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer);
-char		**ft_parser_split(char *s, char c);
-char		*ft_split_array(char *s, char c);
+void		free_2D_array(char **cmd);
+char		**ft_lexer_split(char *s);
+t_parser	*parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer);
 void		executor(t_minishell *minishell);
+int			quote_check(const char *str, size_t start);
+int			is_whitespace_ll(char c);
+t_parser	*free_list_array(t_parser *parser);
+
 
 #endif

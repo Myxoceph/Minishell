@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/12 13:11:35 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:34:32 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	starting(void)
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*minishell;
-	t_minishell *tmp;
 	char		*input;
 	int	i = -1;
 
@@ -56,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_putstr_fd(BIRED "Error: No args needed.\n" RESET, 2);
 		return (1);
 	}
-	starting();
+	//starting();
 	*minishell = init_minishell(minishell, envp);
 	while (1)
 	{
@@ -68,17 +67,10 @@ int	main(int argc, char **argv, char **envp)
 		while (minishell->lexer->cmd[++i])
 			ft_printf("Lexer input[%d]: $%s$\n", i, minishell->lexer->cmd[i]);
 		i = -1;
-		while (minishell->parser->next != NULL)
-		{
-			while (minishell->parser->args[++i])
-				ft_printf("Parser input[%d] : $%s$\n", i, minishell->parser->args[i]);
-			ft_printf("Parser pipe : %d\n", minishell->parser->pipe);
-			minishell->parser = minishell->parser->next;
-			i = -1;
-		}
-		// executor(minishell);
 		if (minishell->lexer->cmd)
-			free_2D_array(minishell->lexer);
+			free_2D_array(minishell->lexer->cmd);
+		if (minishell->parser->args)
+			minishell->parser = free_list_array(minishell->parser);
 		add_history(input);
 		if (ft_strncmp(input, "exit", 4) == 0)
 			break ;

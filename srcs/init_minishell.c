@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:10:41 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/09 19:51:31 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:09:38 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,17 @@ static char	**array_copier(char **src)
 	return (dest);
 }
 
-void	free_2D_array(t_lexer *lexer)
+void	free_2D_array(char **cmd)
 {
 	int	i;
 
-	i = 0;
-	while (lexer->cmd[i] != NULL)
-	{
-		gfree(lexer->cmd[i]);
-		i++;
-	}
-	if (lexer->cmd)
-		gfree(lexer->cmd);
-	memset(lexer, 0, sizeof(t_lexer));
+	i = -1;
+	if (!(*cmd))
+		return ;
+	while (cmd[++i])
+		gfree(cmd[i]);
+	if (*cmd)
+		gfree(cmd);
 }
 
 t_minishell	init_minishell(t_minishell *minishell, char **envp)
@@ -74,8 +72,9 @@ t_minishell	init_minishell(t_minishell *minishell, char **envp)
 	ft_memset(minishell->env, 0, sizeof(t_env));
 	minishell->lexer = galloc(sizeof(t_lexer));
 	ft_memset(minishell->lexer, 0, sizeof(t_lexer));
-	minishell->parser = galloc(sizeof(t_parser));
-	ft_memset(minishell->parser, 0, sizeof(t_parser));
+	minishell->parser = NULL;
+	// minishell->parser = galloc(sizeof(t_parser));
+	// ft_memset(minishell->parser, 0, sizeof(t_parser));
 	minishell->envp = array_copier(envp);
 	minishell->env = parse_env(minishell->envp);
 	return (*minishell);

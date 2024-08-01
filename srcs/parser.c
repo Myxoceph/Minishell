@@ -6,109 +6,126 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:48:46 by abakirca          #+#    #+#             */
-/*   Updated: 2024/07/11 19:48:28 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 12:30:25 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Minishell.h"
 
-static void	*add_node(t_parser **head)
+static t_parser	*lstnew(char **content)
 {
-	t_parser	*new_node;
-	t_parser	*temp;
+	t_parser	*newcontent;
 
-	new_node = (t_parser *)galloc(sizeof(t_parser));
-	if (!new_node)
-	{
-		ft_putstr_fd(MALL_ERR, 2);
-		clear_garbage();
-		exit(EXIT_FAILURE);
-	}
-	new_node->prev = NULL;
-	new_node->next = NULL;
-	if (*head == NULL)
-		*head = new_node;
-	else
-	{
-		temp = *head;
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new_node;
-		new_node->prev = temp;
-	}
-	return (head);
+	newcontent = (t_parser *)galloc(sizeof(t_parser));
+	if (!newcontent)
+		return (NULL);
+	newcontent->args = content;
+	newcontent->next = NULL;
+	return (newcontent);
 }
 
-static	bool	is_pipe(char *str)
+static void	lstadd_back(t_parser **lst, t_parser *new)
+{
+	t_parser	*tmp;
+
+	if (!new)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	tmp = *lst;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new;
+}
+
+static int	pipe_counter(char *str)
 {
 	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '|')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-static int	arraycount(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i][0] == '\0')
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-static int	wordcount(char *str)
-{
-	int		i;
-	int		count;
+	int	count;
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
 			i++;
-			while (str[i] && str[i] != '\'' && str[i] != '\"')
+			while (str[i] != '\'' && str[i] != '\"')
 				i++;
-			count++;
 		}
-		else if (str[i] != ' ')
-		{
-			while (str[i] && str[i] != ' ')
-				i++;
+		else if (str[i] == '|')
 			count++;
-		}
 		i++;
 	}
-	// printf("--wordcount: %d--\n", count);
 	return (count);
 }
 
-void	parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer)
+static int	wordcount(char **s, int *i)
+{
+	int	count;
+
+	count = 0;
+	while (s[*i])
+	{
+		if (s[*i][0] == '|')
+			break ;
+		else
+		{
+			count++;
+			(*i)++;
+		}
+	}
+	printf("count -> %d\n", count);
+	return (count);
+}
+
+static int	finder(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (i < arraycount(lexer->cmd))
+	if (!str)
+		return (0);
+	if (str[0] == '|')
+		return (1);
+	return (0);
+}
+
+t_parser	*parser(t_minishell *minishell, t_parser *parser, t_lexer *lexer)
+{
+	int		i;
+	int		j;
+	int		k;
+	int		l;
+	char	**args;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	l = 0;
+	if (lexer->cmd[0])
 	{
-		add_node(&parser);
-		parser->args = ft_parser_split(lexer->cmd[i], ' ');
-		if (is_pipe(lexer->cmd[i]))
-			parser->pipe = true;
-		else
-			parser->pipe = false;
-		parser = parser->next;
-		i++;
+		while (i < pipe_counter(minishell->input) + 1)
+		{
+			args = (char **)galloc(sizeof(char *) * ((wordcount(lexer->cmd, &l)
+							+ 1)));
+			while (lexer->cmd[j] && !finder(lexer->cmd[j]))
+			{
+				args[k] = ft_strdup(lexer->cmd[j]);
+				j++;
+				k++;
+			}
+			args[k] = NULL;
+			printf("Adding new list element\n");
+			lstadd_back(&parser, lstnew(args));
+			j++;
+			i++;
+			l++;
+			k = 0;
+		}
 	}
+	return (parser);
 }
