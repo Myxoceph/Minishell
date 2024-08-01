@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:34:04 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 13:21:30 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:51:03 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		i = -1;
 	}
+	rl_clear_history();
 	clear_garbage();
 }

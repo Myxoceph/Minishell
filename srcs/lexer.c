@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:24:40 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 13:21:20 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:49:51 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,14 @@ void	lexer_parser(t_minishell *minishell, t_lexer *lexer)
 	if (eol_error(minishell, lexer))
 		return ;
 	lexer->cmd = ft_lexer_split(minishell->input);
-	while (minishell->lexer->cmd[++i])
-		ft_printf("Lexer input[%d]: $%s$\n", i, minishell->lexer->cmd[i]);
+	// while (minishell->lexer->cmd[++i])
+	// 	ft_printf("Lexer input[%d]: $%s$\n", i, minishell->lexer->cmd[i]);
 	minishell->parser = parser(minishell, minishell->parser, minishell->lexer);
 	// printList(minishell->parser);
 	if (minishell->parser)
+	{
+		remove_quotes(minishell->parser->args);
 		executor(minishell);
+	}
 	return ;
 }

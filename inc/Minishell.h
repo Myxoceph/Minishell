@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:33:30 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 13:13:46 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:11:02 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 # define ERR_TITLE "minishell: "
 # define SYNTAX_ERR "syntax error near unexpected token"
 # define MALL_ERR "malloc error"
+# define SUCCESS 0
+# define FAILURE 1
 
 typedef enum e_token
 {
@@ -80,6 +82,7 @@ typedef struct s_minishell
 	t_env		*env;
 	t_lexer		*lexer;
 	t_parser	*parser;
+	char		*path;
 	char		**envp;
 	char		*input;
 }				t_minishell;
@@ -99,6 +102,8 @@ void		ft_echo(char **args);
 void		ft_env(t_minishell *minishell);
 char		*get_pwd(void);
 void		signal_handler(int signo);
+void		remove_quotes(char **args);
+char		**array_copier(char **src);
 
 
 #endif

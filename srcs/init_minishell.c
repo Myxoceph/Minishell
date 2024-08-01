@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 20:10:41 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 13:19:06 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:10:56 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	count_rows(char **array)
 	return (rows);
 }
 
-static char	**array_copier(char **src)
+char	**array_copier(char **src)
 {
 	char	**dest;
 	int		rows;
