@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:24:40 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 13:49:51 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:19:24 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	eol_error (t_minishell *minishell, t_lexer *lexer)
 
 	line = minishell->input;
 	i = ft_strlen(line) - 1;
-	while (i > 0)
+	while (i >= 0)
 	{
 		while (line[i] == ' ')
 			i--;
@@ -94,5 +94,6 @@ void	lexer_parser(t_minishell *minishell, t_lexer *lexer)
 		remove_quotes(minishell->parser->args);
 		executor(minishell);
 	}
+	printf("lexer_parser %p\n", lexer->cmd);
 	return ;
 }

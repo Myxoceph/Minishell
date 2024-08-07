@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:41:11 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 14:19:52 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:14:44 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,19 @@ static int	create_fork(t_minishell *minishell, char **args, int i)
 
 static int	is_builtin(char *cmd)
 {
-	if (!ft_strncmp(cmd, "echo", 4))
+	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		return (1);
-	else if (!ft_strncmp(cmd, "cd", 4))
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		return (2);
-	else if (!ft_strncmp(cmd, "pwd", 4))
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
 		return (3);
-	else if (!ft_strncmp(cmd, "export", 4))
+	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
 		return (4);
-	else if (!ft_strncmp(cmd, "unset", 4))
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
 		return (5);
-	else if (!ft_strncmp(cmd, "env", 4))
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		return (6);
-	else if (!ft_strncmp(cmd, "exit", 4))
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
 		return (7);
 	return (0);
 }
@@ -123,6 +123,6 @@ void	executor(t_minishell *minishell)
 	else if (is_builtin(minishell->parser->args[0]) == 7)
 		exit(0);
 	else
-	create_fork(minishell, minishell->parser->args, 0);
+		create_fork(minishell, minishell->parser->args, 0);
 
 }

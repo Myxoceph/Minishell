@@ -6,7 +6,7 @@
 /*   By: abakirca <abakirca@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:57:17 by abakirca          #+#    #+#             */
-/*   Updated: 2024/08/01 13:13:39 by abakirca         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:20:15 by abakirca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,19 @@ t_parser	*free_list_array(t_parser *parser)
 {
 	t_parser	*tmp;
 
-	while (parser)
+	ft_printf("geldi\n");
+	if (parser)
 	{
-		tmp = parser;
-		parser = parser->next;
-		free_args(tmp->args);
-		gfree(tmp);
+		while (parser)
+		{
+			tmp = parser;
+			parser = parser->next;
+			if (tmp->args)
+				free_args(tmp->args);
+			gfree(tmp);
+		}
+		parser = NULL;
 	}
-	parser = NULL;
 	return (parser);
 }
 
